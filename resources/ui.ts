@@ -130,7 +130,7 @@ export function dropConfetti(): void {
 }
 
 export async function getSVG(): Promise<string> {
-  const svgRes = await fetch("./oxide-check.svg");
+  const svgRes = await fetch("./hivemq-check.svg");
   if (!svgRes.ok) {
     throw new Error("Failed to get svg");
   }

@@ -8,11 +8,11 @@ import {
   addImageDownload,
 } from "./resources/ui";
 
-const oxideBingoTiles: string | null = localStorage.getItem("oxideBingoTiles");
-const oxideBingoTime: string | null = localStorage.getItem("oxideBingoTime");
+const hivemqBingoTiles: string | null = localStorage.getItem("hivemqBingoTiles");
+const hivemqBingoTime: string | null = localStorage.getItem("hivemqBingoTime");
 
-if (oxideBingoTime && oxideBingoTiles) {
-  checkTimestamp(oxideBingoTime);
+if (hivemqBingoTime && hivemqBingoTiles) {
+  checkTimestamp(hivemqBingoTime);
 } else {
   newGame();
 }

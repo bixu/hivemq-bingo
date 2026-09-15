@@ -167,13 +167,13 @@ function toggleCheck(cell: Element, svg: string, index: number, checkedTiles: bo
 }
 
 function saveTiles(tiles: string[]): void {
-  localStorage.setItem("oxideBingoTiles", JSON.stringify(tiles));
-  localStorage.setItem("oxideBingoTime", JSON.stringify(Date.now()));
+  localStorage.setItem("hivemqBingoTiles", JSON.stringify(tiles));
+  localStorage.setItem("hivemqBingoTime", JSON.stringify(Date.now()));
 }
 
 function saveChecked(checkedTiles: boolean[]): void {
   // Use debounced save to avoid blocking on rapid clicks
-  debouncedSave("oxideBingoChecked", checkedTiles);
+  debouncedSave("hivemqBingoChecked", checkedTiles);
 }
 
 function setChecked(svg: string, checkedTiles: boolean[]): void {
@@ -197,9 +197,9 @@ function setChecked(svg: string, checkedTiles: boolean[]): void {
   saveChecked(checkedTiles);
 }
 
-export async function checkTimestamp(oxideBingoTime: string): Promise<void> {
+export async function checkTimestamp(hivemqBingoTime: string): Promise<void> {
   const currentTime: number = Date.now();
-  const timeDifference: number = currentTime - Number.parseFloat(oxideBingoTime);
+  const timeDifference: number = currentTime - Number.parseFloat(hivemqBingoTime);
   const svg: string = getSVG(); // Now synchronous!
 
   if (timeDifference < 10800000) {
@@ -212,19 +212,19 @@ export async function checkTimestamp(oxideBingoTime: string): Promise<void> {
 }
 
 async function reloadTiles(svg: string): Promise<void> {
-  let oxideBingoTiles: string | null = localStorage.getItem("oxideBingoTiles");
+  let hivemqBingoTiles: string | null = localStorage.getItem("hivemqBingoTiles");
 
-  if (oxideBingoTiles !== null) {
-    let oxideBingoChecked: string | null = localStorage.getItem("oxideBingoChecked");
+  if (hivemqBingoTiles !== null) {
+    let hivemqBingoChecked: string | null = localStorage.getItem("hivemqBingoChecked");
     let checkedTiles: boolean[];
-    if (oxideBingoChecked) {
-      checkedTiles = JSON.parse(oxideBingoChecked);
+    if (hivemqBingoChecked) {
+      checkedTiles = JSON.parse(hivemqBingoChecked);
     } else {
       checkedTiles = Array(25).fill(false);
       checkedTiles[12] = true;
     }
 
-    const tiles = JSON.parse(oxideBingoTiles);
+    const tiles = JSON.parse(hivemqBingoTiles);
     fillBoard(tiles);
     addEventHandlers(svg, checkedTiles);
     setChecked(svg, checkedTiles);
@@ -244,7 +244,7 @@ export async function newGame(): Promise<void> {
     const tiles = shuffleTiles(loadedTiles);
     const checkedTiles = Array(25).fill(false);
     checkedTiles[12] = true;
-    localStorage.setItem("oxideBingoChecked", JSON.stringify(checkedTiles));
+    localStorage.setItem("hivemqBingoChecked", JSON.stringify(checkedTiles));
     fillBoard(tiles);
     addEventHandlers(svg, checkedTiles);
   }
