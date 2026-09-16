@@ -1,0 +1,242 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+@font-face {
+    font-family: "BlexMono Nerd Font Propo";
+    src: url("BlexMonoNerdFontPropo-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+    background-color: #242930;
+    font-family: "BlexMono Nerd Font Propo", monospace;
+    margin: 0;
+    padding: 0;
+    color: #ffc000;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    padding: 1.5em 1em 0.5em;
+}
+
+.header-logo {
+    height: 2rem;
+    width: auto;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1em;
+}
+
+.refresh-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1em;
+}
+
+button {
+    font-family: sans-serif;
+    color: #ffffff;
+    background-color: #000000;
+    border: 2px solid #ffc000;
+    border-radius: 8px; /* rounded corners */
+    padding: 0.75em 1.5em; /* responsive spacing */
+    text-align: center;
+    font-size: 1rem; /* adjusts with media queries */
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+    display: inline-block;
+}
+
+button:hover {
+    background-color: #111111; /* subtle hover darkening */
+}
+
+button:active {
+    transform: scale(0.98); /* small click effect */
+}
+
+.description {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 0 1rem;
+    color: #afbac4;
+}
+
+.outer {
+    width: 90vw; /* 90% of viewport width */
+    max-width: 640px; /* never bigger than desktop size */
+    aspect-ratio: 1 / 1.05;
+    background: #1a1d21;
+    display: grid;
+    place-items: center;
+    margin: auto; /* center on small screens */
+    border: 3px solid #ffc000;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 1.5em 1em;
+}
+
+.inner {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8vw; /* scales with viewport */
+    box-sizing: border-box;
+}
+
+.confetti {
+    position: fixed;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    opacity: 0.8;
+    animation: fall linear forwards;
+    z-index: 9999;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0.9;
+    }
+}
+
+.cell {
+    aspect-ratio: 1 / 1;
+    /*border: 1px solid rgba(0, 0, 0, 0.25);*/
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font:
+        600 clamp(8px, 2vw, 15px) system-ui,
+        sans-serif;
+
+    text-shadow: 1px 1px 5px black;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.2em;
+
+    position: relative; /* <-- key */
+    overflow: hidden; /* clip overlay edges */
+}
+
+.cell.checked {
+}
+
+.cell p {
+    margin: 0;
+    padding: 0.3em 0.5em;
+    word-break: break-word;
+    hyphens: auto;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 4px;
+    box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.15);
+}
+
+.cell:hover {
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+.overlay {
+    position: absolute;
+    inset: 2px;
+    margin: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.overlay svg {
+    width: 50%;
+    height: auto;
+    stroke: #ffc000;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 1));
+}
+
+@media (max-width: 500px) {
+    button {
+        font-size: 0.9rem; /* slightly smaller on mobile */
+        padding: 0.6em 1.2em;
+    }
+
+    .header-logo {
+        height: 1.5rem;
+    }
+
+    .header-title {
+        font-size: 1.2rem;
+    }
+
+    .outer {
+        width: 96vw;
+        height: auto;
+    }
+
+    .inner {
+        gap: 1vw;
+    }
+
+    .cell {
+        font-size: clamp(2vw, 2.25vw, 12px);
+        text-shadow: 1px 1px 5px black;
+        aspect-ratio: 1 / 1;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 0.2em;
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+            0 0 20px #fff,
+            0 0 30px #122322,
+            0 0 40px #122322,
+            0 0 50px #122322,
+            0 0 60px #122322,
+            0 0 70px #122322,
+            0 0 80px #122322;
+    }
+    to {
+        text-shadow:
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 30px #ffc000,
+            0 0 40px #ffc000,
+            0 0 50px #ffc000,
+            0 0 60px #ffc000,
+            0 0 70px #ffc000;
+    }
+}
