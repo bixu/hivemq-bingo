@@ -200,7 +200,7 @@ function setChecked(svg: string, checkedTiles: boolean[]): void {
 export async function checkTimestamp(hivemqBingoTime: string): Promise<void> {
   const currentTime: number = Date.now();
   const timeDifference: number = currentTime - Number.parseFloat(hivemqBingoTime);
-  const svg: string = getSVG(); // Now synchronous!
+  const svg: string = await getSVG();
 
   if (timeDifference < 10800000) {
     console.log("Game state saved within three hours");
@@ -237,7 +237,7 @@ async function reloadTiles(svg: string): Promise<void> {
 
 export async function newGame(): Promise<void> {
   localStorage.clear();
-  const svg: string = getSVG(); // Now synchronous!
+  const svg: string = await getSVG();
   const loadedTiles = await loadTiles();
 
   if (loadedTiles !== null) {
